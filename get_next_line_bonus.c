@@ -6,12 +6,12 @@
 /*   By: ahentton <ahentton@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:21:25 by ahentton          #+#    #+#             */
-/*   Updated: 2024/06/13 14:22:58 by ahentton         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:01:26 by ahentton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-#include <limits.h>
+#include <stdio.h>
 
 char	*rem_buffer(char *s_buffer)
 {
@@ -97,7 +97,7 @@ char	*read_fd(int fd, char *s_buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*s_buffer[OPEN_MAX];
+	static char	*s_buffer[FOPEN_MAX];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
