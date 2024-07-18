@@ -6,7 +6,7 @@
 /*   By: ahentton <ahentton@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:22:40 by ahentton          #+#    #+#             */
-/*   Updated: 2024/06/24 15:21:20 by ahentton         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:25:45 by ahentton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,13 @@ size_t	gnl_strlen(const char *str)
 	return (i);
 }
 
-void	*free_null(char **str)
+void	*free_null(char **str, char **str2)
 {
+	if (str2)
+	{
+		free (*str2);
+		*str2 = NULL;
+	}
 	free (*str);
 	*str = NULL;
 	return (NULL);
@@ -81,7 +86,7 @@ char	*gnl_strjoin(char *s1, char *s2)
 	sizetotal = (gnl_strlen(s1) + gnl_strlen(s2));
 	ret = gnl_calloc(sizeof(char), sizetotal + 1);
 	if (ret == NULL)
-		return (free_null(&s1));
+		return (free_null(&s1, 0));
 	i = 0;
 	while (s1[i] != '\0')
 	{
@@ -94,6 +99,6 @@ char	*gnl_strjoin(char *s1, char *s2)
 		ret[i + j] = s2[j];
 		j++;
 	}
-	free_null(&s1);
+	free_null(&s1, 0);
 	return (ret);
 }

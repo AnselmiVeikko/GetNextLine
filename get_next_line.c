@@ -6,7 +6,7 @@
 /*   By: ahentton <ahentton@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:38:37 by ahentton          #+#    #+#             */
-/*   Updated: 2024/07/18 13:55:05 by ahentton         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:47:22 by ahentton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
 		if (s_buffer != NULL)
-			free(s_buffer);
+			free (s_buffer);
 		s_buffer = NULL;
 		return (NULL);
 	}
