@@ -6,7 +6,7 @@
 /*   By: ahentton <ahentton@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:21:25 by ahentton          #+#    #+#             */
-/*   Updated: 2024/06/24 16:01:26 by ahentton         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:04:11 by ahentton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,15 @@ char	*trim_buffer(char *s_buffer)
 char	*read_fd(int fd, char *s_buffer)
 {
 	ssize_t	bytes_read;
-	char	cup_buffer[BUFFER_SIZE + 1];
+	char	*cup_buffer;
 
 	if (!s_buffer)
 		s_buffer = gnl_calloc(1, 1);
 	if (s_buffer == NULL)
 		return (NULL);
+	cup_buffer = gnl_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (!cup_buffer)
+		return (free_null(&s_buffer));
 	bytes_read = 1;
 	while (bytes_read > 0 && s_buffer && gnl_strchr(s_buffer, '\n') == -1)
 	{
@@ -86,12 +89,16 @@ char	*read_fd(int fd, char *s_buffer)
 		if (bytes_read <= 0)
 		{
 			if (s_buffer[0] == '\0')
+			{
+				free (cup_buffer);
 				return (free_null(&s_buffer));
+			}
 			break ;
 		}
 		cup_buffer[bytes_read] = '\0';
 		s_buffer = gnl_strjoin(s_buffer, cup_buffer);
 	}
+	free (cup_buffer);
 	return (s_buffer);
 }
 
@@ -100,7 +107,7 @@ char	*get_next_line(int fd)
 	static char	*s_buffer[FOPEN_MAX];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0 || fd >= FOPEN_MAX)
 	{
 		if (s_buffer[fd] != NULL)
 			free(s_buffer[fd]);

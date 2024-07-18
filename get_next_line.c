@@ -6,7 +6,7 @@
 /*   By: ahentton <ahentton@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:38:37 by ahentton          #+#    #+#             */
-/*   Updated: 2024/06/13 14:23:08 by ahentton         ###   ########.fr       */
+/*   Updated: 2024/07/18 13:55:05 by ahentton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ char	*rem_buffer(char *s_buffer)
 	buflen = gnl_strlen(s_buffer);
 	nl_index = gnl_strchr(s_buffer, '\n');
 	if (nl_index == -1)
-		return (free_null(&s_buffer));
+		return (free_null(&s_buffer, 0));
 	rem_buffer = gnl_calloc((buflen - nl_index), sizeof(char));
 	if (rem_buffer == NULL)
-		return (free_null (&s_buffer));
+		return (free_null (&s_buffer, 0));
 	i = 0;
 	nl_index++;
 	while (s_buffer[nl_index] != '\0')
@@ -36,7 +36,7 @@ char	*rem_buffer(char *s_buffer)
 		i++;
 		nl_index++;
 	}
-	free_null (&s_buffer);
+	free_null (&s_buffer, 0);
 	return (rem_buffer);
 }
 
@@ -72,12 +72,15 @@ char	*trim_buffer(char *s_buffer)
 char	*read_fd(int fd, char *s_buffer)
 {
 	ssize_t	bytes_read;
-	char	cup_buffer[BUFFER_SIZE + 1];
+	char	*cup_buffer;
 
 	if (!s_buffer)
 		s_buffer = gnl_calloc(1, 1);
 	if (s_buffer == NULL)
 		return (NULL);
+	cup_buffer = gnl_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (!cup_buffer)
+		return (free_null(&s_buffer, 0));
 	bytes_read = 1;
 	while (bytes_read > 0 && s_buffer && gnl_strchr(s_buffer, '\n') == -1)
 	{
@@ -85,12 +88,13 @@ char	*read_fd(int fd, char *s_buffer)
 		if (bytes_read <= 0)
 		{
 			if (s_buffer[0] == '\0')
-				return (free_null(&s_buffer));
+				return (free_null(&s_buffer, &cup_buffer));
 			break ;
 		}
 		cup_buffer[bytes_read] = '\0';
 		s_buffer = gnl_strjoin(s_buffer, cup_buffer);
 	}
+	free (cup_buffer);
 	return (s_buffer);
 }
 
@@ -112,12 +116,12 @@ char	*get_next_line(int fd)
 	line = trim_buffer(s_buffer);
 	if (line == NULL)
 	{
-		free_null(&s_buffer);
+		free_null(&s_buffer, 0);
 		s_buffer = NULL;
 		return (NULL);
 	}
 	s_buffer = rem_buffer(s_buffer);
 	if (s_buffer == NULL)
-		free_null(&s_buffer);
+		free_null(&s_buffer, 0);
 	return (line);
 }
