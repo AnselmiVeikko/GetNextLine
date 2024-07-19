@@ -6,7 +6,7 @@
 /*   By: ahentton <ahentton@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:38:37 by ahentton          #+#    #+#             */
-/*   Updated: 2024/07/19 13:17:59 by ahentton         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:33:48 by ahentton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*read_fd(int fd, char *s_buffer)
 	if (!cup_buffer)
 		return (free_null(&s_buffer, 0));
 	bytes_read = 1;
-	while (bytes_read > 0 && gnl_findnl(s_buffer, '\n') == -1)
+	while (gnl_findnl(s_buffer, '\n') == -1)
 	{
 		bytes_read = read (fd, cup_buffer, BUFFER_SIZE);
 		if (bytes_read <= 0)
