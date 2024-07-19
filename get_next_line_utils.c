@@ -6,7 +6,7 @@
 /*   By: ahentton <ahentton@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:44:00 by ahentton          #+#    #+#             */
-/*   Updated: 2024/07/18 13:51:30 by ahentton         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:48:33 by ahentton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	*gnl_calloc(size_t count, size_t size)
 	return (p);
 }
 
-int	gnl_strchr(const char *str, char c)
+int	gnl_findnl(const char *str, char c)
 {
 	int	i;
 

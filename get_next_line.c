@@ -6,7 +6,7 @@
 /*   By: ahentton <ahentton@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:38:37 by ahentton          #+#    #+#             */
-/*   Updated: 2024/07/18 14:47:22 by ahentton         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:17:59 by ahentton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ char	*rem_buffer(char *s_buffer)
 	int		buflen;
 	int		i;
 
-	if (s_buffer == NULL)
-		return (NULL);
 	buflen = gnl_strlen(s_buffer);
-	nl_index = gnl_strchr(s_buffer, '\n');
+	nl_index = gnl_findnl(s_buffer, '\n');
 	if (nl_index == -1)
 		return (free_null(&s_buffer, 0));
 	rem_buffer = gnl_calloc((buflen - nl_index), sizeof(char));
@@ -43,28 +41,25 @@ char	*rem_buffer(char *s_buffer)
 char	*trim_buffer(char *s_buffer)
 {
 	char	*line;
-	int		nl_index;
+	int		line_len;
 	int		i;
 
-	if (s_buffer == NULL)
-		return (NULL);
-	nl_index = gnl_strchr(s_buffer, '\n');
-	if (nl_index == -1)
-		nl_index = gnl_strlen(s_buffer);
-	if (s_buffer[nl_index] == '\0')
-		line = gnl_calloc(nl_index + 1, sizeof(char));
+	line_len = gnl_findnl(s_buffer, '\n');
+	if (line_len == -1)
+		line_len = gnl_strlen(s_buffer);
+	if (s_buffer[line_len] == '\0')
+		line = gnl_calloc(line_len + 1, sizeof(char));
 	else
-		line = gnl_calloc(nl_index + 2, sizeof(char));
+		line = gnl_calloc(line_len + 2, sizeof(char));
 	if (!line)
 		return (NULL);
 	i = 0;
-	while (i < nl_index)
+	while (i < line_len)
 	{
 		line[i] = s_buffer[i];
-		if (line[i++] == '\n')
-			return (line);
+		i++;
 	}
-	if (s_buffer[nl_index] == '\n')
+	if (s_buffer[line_len] == '\n')
 		line[i] = '\n';
 	return (line);
 }
@@ -82,7 +77,7 @@ char	*read_fd(int fd, char *s_buffer)
 	if (!cup_buffer)
 		return (free_null(&s_buffer, 0));
 	bytes_read = 1;
-	while (bytes_read > 0 && s_buffer && gnl_strchr(s_buffer, '\n') == -1)
+	while (bytes_read > 0 && gnl_findnl(s_buffer, '\n') == -1)
 	{
 		bytes_read = read (fd, cup_buffer, BUFFER_SIZE);
 		if (bytes_read <= 0)

@@ -6,7 +6,7 @@
 /*   By: ahentton <ahentton@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:21:46 by ahentton          #+#    #+#             */
-/*   Updated: 2024/07/18 14:25:07 by ahentton         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:25:27 by ahentton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 char		*get_next_line(int fd);
 char		*gnl_strjoin(char *s1, char *s2);
-int			gnl_strchr(const char *str, char c);
+int			gnl_findnl(const char *str, char c);
 void		*gnl_calloc(size_t count, size_t size);
 void		*free_null(char **str, char **str2);
 size_t		gnl_strlen(const char *str);
