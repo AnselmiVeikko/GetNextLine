@@ -6,12 +6,11 @@
 /*   By: ahentton <ahentton@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:44:00 by ahentton          #+#    #+#             */
-/*   Updated: 2024/07/19 12:48:33 by ahentton         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:42:49 by ahentton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdint.h>
 
 size_t	gnl_strlen(const char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: ahentton <ahentton@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:39:15 by ahentton          #+#    #+#             */
-/*   Updated: 2024/07/19 13:10:27 by ahentton         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:47:56 by ahentton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdint.h>
 
 char		*get_next_line(int fd);
 char		*gnl_strjoin(char *s1, char *s2);

@@ -6,12 +6,11 @@
 /*   By: ahentton <ahentton@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:21:25 by ahentton          #+#    #+#             */
-/*   Updated: 2024/07/19 13:35:13 by ahentton         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:51:24 by ahentton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-#include <stdio.h>
 
 char	*rem_buffer(char *s_buffer)
 {
